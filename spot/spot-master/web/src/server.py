@@ -42,24 +42,13 @@ def get_playlists(req):
   tracks = results['items']
   #print(json.dumps(results))
   #new_adds = []
+  
+  
   records = {}
   records = Response(body=json.dumps(results))
   records.headers.update({'Access-Control-Allow-Origin': '*',})
   return records
 
-
-  # Continue paginating through until all results are returned
-  #while results['next']:
-    #results = spotify.next(results)
-    #tracks.extend(results['items'])
-    #for items in (tracks):
-    #new_adds.append(item['name'])
-
-  #print(json.dumps(new_adds))
-
-  #print(json.dumps(track['artists'][0]['name']))
-  #print(json.dumps(track['artists']))
-  #print(json.dumps(track['artists']['name']))
 
 
 
