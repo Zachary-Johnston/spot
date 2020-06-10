@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {
+   background-image: url('masonjars.jpg');
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-attachment: fixed;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="css/landing.css">
+<head>
+<style>
+#rounded_button {
+  border-radius: 	5px;
+  border: 2px solid #999999;
+  padding: 10px;
+  width: 200px;
+  height: 30px;
+  text-align: center;
+  background-color: none;
+  color: #333333;
+  vertical-align: middle;
+}
+</style>
+   
+   
+   
+   
+   
+     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/landing.css">
+<script>
+  function openSlideMenu(){
+    document.getElementById('menu').style.width = '250px';
+    document.getElementById('content').style.marginLeft = '250px';
+  }
+  function closeSlideMenu(){
+    document.getElementById('menu').style.width = '0';
+    document.getElementById('content').style.marginLeft = '0';
+  }
+</script>
+   
+   
+   
+           <script>
+         var newsTitle = new String("");
+         var newsDate = new String("");
+         var newsDescription = new String("");
+         var newsTitleAgain = new String("");
+         var newsDateAgain = new String("");
+         var newsDescriptionAgain = new String("");
+         function portal(){
+            window.location.href = "";
+         }
+(function(){
+    let post_URL = "http://polarcoffee.org/get_news"
+    let request = {};
+
+    fetch (post_URL,
+    {
+        method: "POST",
+        body: JSON.stringify(request)
+    })
+    .then(response=>response.json())
+    .then((response) =>{    
+        console.log("Response Received")
+        console.log(response)
+        console.log(response["record"])
+        console.log(response["record"][0])
+        var firstUpdate = response["record"][0];
+        var secondUpdate = response["record"][1];
+        console.log(firstUpdate);
+        console.log(secondUpdate);
+        newsTitle = firstUpdate[1];
+        document.getElementById("theTitle").innerHTML = newsTitle;
+        console.log(newsTitle)
+        newsDate = firstUpdate[2];
+        document.getElementById("theDate").innerHTML = newsDate;
+        console.log(newsDate)
+        newsDescription = firstUpdate[3];
+        document.getElementById("theDescription").innerHTML = newsDescription;
+        console.log(newsDescription)
+       
+        newsTitleAgain = secondUpdate[1];
+        document.getElementById("theTitleAgain").innerHTML = newsTitleAgain;
+        console.log(newsTitleAgain)
+        newsDateAgain = secondUpdate[2];
+        document.getElementById("theDateAgain").innerHTML = newsDateAgain;
+        console.log(newsDateAgain)
+        newsDescriptionAgain = secondUpdate[3];
+        document.getElementById("theDescriptionAgain").innerHTML = newsDescriptionAgain;
+        console.log(newsDescriptionAgain)
+    })
+
+    .catch((error)=>{
+        console.log("Error");
+        console.error(error);
+    })
+setTimeout(arguments.callee, 60000);
+})();
+   </script>
+   
+   
+   
+         <p><table style="border-collapse: collapse; float:right; width:20%; margin: 15px 0 15px 15px; padding: 10px; cellspacing: 0px; background:#FFFFFF;">
+  <tr style="border:1px solid #888888; background:#cccccc; padding: 8px;">
+    <th style="text-align:center;">UPDATES</th> 
+  </tr>
+  <tr>
+    <td id="theDate" style="border:1px solid #888888; font-weight: bold; background:#FFFFFF;"><strong>database loading. try refreshing.</strong><br />database loading. try refreshing.</td>
+  </tr>
+  <tr>
+    <td id="theTitle" style="border:1px solid #888888; background:#eeeeee;"><strong>database loading. try refreshing.</strong><br />database loading. try refreshing.</td>
+  </tr>
+  <tr>
+    <td id="theDescription" style="border:1px solid #888888; background:#FFFFFF;"><strong>database loading. try refreshing.</strong><br />database loading. try refreshing.</td>
+  </tr>
+     <tr>
+    <td id="theDateAgain" style="border:1px solid #888888; font-weight: bold; background:#FFFFFF;"><strong>database loading. try refreshing.</strong><br />database loading. try refreshing.</td>
+  </tr>
+  <tr>
+    <td id="theTitleAgain" style="border:1px solid #888888; background:#eeeeee;"><strong>database loading. try refreshing.</strong><br />database loading. try refreshing.</td>
+  </tr>
+  <tr>
+    <td id="theDescriptionAgain" style="border:1px solid #888888; background:#FFFFFF;"><strong>database loading. try refreshing.</strong><br />database loading. try refreshing.</td>
+  </tr>
+</table></p>
+   
+   
+   
+   
+   
+   
+   
+</head>
+<body>
+<img src="/polar-coffee-logo-white-400px_tag.png" alt="Polar Coffee" title="Polar Coffee" width="300px" padding: 30px;>
+
+   
+   
+   
+   
+   <body>
+     <div id="content">
+
+    <span class="slide">
+      <a href="#" onclick="openSlideMenu()">
+        <i class="fas fa-bars"></i>
+      </a>
+    </span>
+
+    <div id="menu" class="nav">
+      <a href="#" class="close" onclick="closeSlideMenu()">
+        <i class="fas fa-times"></i>
+      </a>
+      <a href="http://polarcoffee.org">Home</a>
+      <a href="http://polarcoffee.org/about">About</a>
+      <a href="http://polarcoffee.org/features">Features</a>
+      <a href="http://polarcoffee.org/pricing">Pricing</a>
+      <a href="http://polarcoffee.org/sign_up">Sign Up</a>
+      <a href="http://polarcoffee.org/login">Login</a>
+      <a href="http://polarcoffee.org/metrics">Metrics</a>
+    </div>
+  </div>
+   </body>
+   
+   
+<div class="custom" >
+<center> 
+<p><span style="font-family: Helvetica; font-size: 4.5em; text-shadow: 1px 1px #000000 !important; color: #ffffff; line-height: 150%; text-transform: uppercase; font-weight: 300;">{{user}}</span></p> 
+<p><span style="font-family: Helvetica; font-size: 4.5em; text-shadow: 1px 1px #000000 !important; color: #ffffff; line-height: 150%; text-transform: uppercase; font-weight: 300;">There's an easier way...</span></p> 
+</center>
+   
+   
+   
+   <center>
+<p><span style="font-family: Helvetica; font-size: 2.0em; text-shadow: 1px 1px #000000; color: #ffffff; line-height: 1.3; text-transform: lowercase; font-weight: 300;">No other coffee machine produces quality iced coffee instantaneously.</span></p> 
+</center> 
+<p>&nbsp;</p> 
+<p>&nbsp;</p>
+<p>&nbsp;</p> 
+<p>&nbsp;</p> 
+<center><a class="rounded_button" style="text-transform: no-underline;" href="http://polarcoffee.org/about">About us.</a></center></div>
+<p>&nbsp;</p> 
+<center><table style="width:90%; text-align: center; background-color: none; color: #ffffff; padding:15px;">
+    <tr>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p> 
+    <p>&nbsp;</p>
+      <th><h1><span style="font-family: Helvetica; font-size: 2em; text-shadow: 1px 1px #000000 !important; color: #ffffff; line-height: 150%; text-transform: uppercase; font-weight: 300;">Revolutionary Design</span></h1></th>
+    </tr>
+    <tr>
+      <td><h2><span style="font-family: Helvetica; font-size: 1em; text-shadow: 1px 1px #000000 !important; color: #ffffff; line-height: 150%; font-weight: 300;">With our proprietary ArcticCooling technology, our machine can cool boiling hot coffee down to near freezing point at a lightning fast speed. With a touch of a button on your phone, enjoy a cup of ice cold or cozy warm coffee within minutes. Polar Coffee’s smart coffee machine makes coffee how you want it, when you want it.</span></h2></td>
+          </tr>
+   <tr>
+          </center> 
+   </tr>
+  </table></center>
+<p>&nbsp;</p> 
+   <p>&nbsp;</p>
+   <p>&nbsp;</p> 
+   <center><a class="rounded_button" style="text-transform: no-underline;" href="http://polarcoffee.org/features">See features.</a></center></div>
+<p>&nbsp;</p>
+    <tr>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p> 
+    <p>&nbsp;</p>
+      <th><h1><center><span style="font-family: Helvetica; font-size: 2em; text-shadow: 1px 1px #000000 !important; color: #ffffff; line-height: 150%; text-transform: uppercase; font-weight: 300;">One powerful machine. One price.</span></center></h1></th>
+    </tr>
+    <tr>
+      <td><h2><center><span style="font-family: Helvetica; font-size: 1em; text-shadow: 1px 1px #000000 !important; color: #ffffff; line-height: 150%; font-weight: 300;">Find out how you can revolutionise your coffee routine.</span></center></h2></td>
+          </tr>
+   <tr>
+          </center> 
+   </tr>
+  </table></center>
+<p>&nbsp;</p> 
+   <p>&nbsp;</p>
+   <p>&nbsp;</p> 
+   <center><a class="rounded_button" style="text-transform: no-underline;" href="http://polarcoffee.org/pricing">See pricing.</a></center></div>
+<p>&nbsp;</p>
+<center><table style="width:90%; text-align: center; background-color: none; color: #ffffff; padding:15px;">
+    <tr>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p> 
+    <p>&nbsp;</p> 
+      <th><h1><span style="font-family: Helvetica; font-size: 2em; text-shadow: 1px 1px #000000 !important; color: #ffffff; line-height: 150%; text-transform: uppercase; font-weight: 300;">Sign up now for free stuff</span></h1></th>
+    </tr>
+    <tr>
+      <td><h2><span style="font-family: Helvetica; font-size: 1em; text-shadow: 1px 1px #000000 !important; color: #ffffff; line-height: 150%; font-weight: 300;">You'll be notified as soon as our product is available. We will need beta testers, and we'll send you our prototype for free.</span></h2><br /><p><center><a class="rounded_button" style="text-transform: no-underline;" href="http://polarcoffee.org/sign_up">Sign up.</a></center>
+    </tr>
+    <tr></tr>
+  </table></center>
+<hr>
+  <center><table style="width:90%; text-align: center; background-color: none; color: #ffffff; padding:15px;">
+    <tr>
+      <th class="pointer"><img id="Bottom" src="/polar-coffee-logo-square-300px.png" onClick="myFunction()" alt="Polar Coffee" title="Polar Coffee" width="200px";>
+      <script>
+         document.getElementById("Bottom").onclick = function() {
+            window.location.href = "http://polarcoffee.org";
+         };
+      </script></th>
+    </tr>
+    <tr>
+      <td><em>How you want it, when you want it.</em></td>
+    </tr>
+    <th>Polar Coffee, Ltd.<br />
+      123 Main Street<br />
+      Anytown, CA 92336<br />
+      Tel (909) 555-5555</th>
+    </tr>
+  </table></center>
+  <hr />
+  <p><span style ="color: #ffffff;"> © Polar Coffee 2020. All rights reserved.</span></p>
+  </body>
+  </html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="css/did_log_in.css">
+<link rel="stylesheet" type="text/css" href="css/sign_up.css">
+<form action="/post_login" method="POST">
+    <p style="font-family:times;">{{tag}}</p>
+    <div class="pad-me">
+        <label for="Username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="Username" required>
+
+        <label for="Password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="Password" required>
+
+        <button type="submit" onclick="return validate(this.form)" value="Login">Login</button>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+        <button type="button" class="reset">Reset</button>
+        <button type="button" class='reset' onclick="sign_up()"
+                style="background-color: #4CAF98;
+                color: white;">
+            Sign Up</sign_button>
+            </span>
+    </div>
+
+
+    <script language="javascript">
+
+        function validate(form)
+        {
+        //http.post("http://localhost:5000/post_login", params = request )
+        window.location.href ="64.225.127.211";
+        }
+    </script>
+
+    <script>
+        function sign_up() {
+        window.location.href ="64.225.127.211/sign_up";
+        }
+    </script>
+    </!--form>
+</html>

@@ -1,0 +1,6 @@
+pyramid==1.10
+spotipy==2.4.4
+pyramid-jinja2
+requests==2.18
+mysql-connector-python
+python-dotenv

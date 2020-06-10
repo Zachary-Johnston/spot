@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+   <link rel="stylesheet" type="text/css" href="css/setter.css">
+<head>
+<title> Design your Coffee </title>
+<style>
+  
+   .hidden{
+       display: none !important;
+   }
+</style>
+</head>
+<div id="menuoption">
+   <p id = "user">When would you like your coffee, {{username}}?</p>
+   <button class="menubuttons" onclick="script1()">ASAP
+   <span></span><span></span><span></span><span></span></button>
+   <button class="menubuttons" onclick="script2()">Schedule
+   <span></span><span></span><span></span><span></span></button>
+</div>
+ 
+ 
+ 
+<form id="myForm" action="http://64.225.127.211:6001/coffeeset" method="POST" onsubmit="return showtimer();">
+ 
+   <div id="Temperature">
+       <div id="slidecontainer">
+           <header>Design your Coffee</header>
+           <p class="optiontitle"> Coffee Temperature </p>
+           <div id="slide">
+               <p style="color: blue;">Ice Cold</p>
+               <input type="range" min="1" max="100" value="50" class="slider" id="myRange"> <p style="color:red;">Hot & Warm</p>
+       </div>
+ 
+           <p id="slidervalue"></p>
+           <input type="button" onclick="submit()" value="Submit">
+   </div>
+ 
+
+   <div style="display:none;">
+       <input type = "radio" name ="temperature" id ="hot" value="Hot">
+       <label for="hot">Hot</label><br>
+       <input type = "radio" name ="temperature" id ="cold" value="Cold">
+       <label for="cold">Cold</label><br>
+       <input type="submit" value="Submit">
+   </div>
+ 
+   <div id="scheduler">
+       <p class="optiontitle"> Schedule a Coffee </p>
+       <div id="fulldate">
+           <p id="year">YYYY</p>
+           <p id="month">MM</p>
+           <input class="dt" type="time" placeholder="Date">
+           <input class="dt"  type="time" placeholder="Time">
+           <select>
+               <option value="AM">AM</option>
+               <option value="PM">PM</option>
+           <select>
+       </div>
+   </div>
+ 
+   </div>
+</form>
+ 
+ 
+ 
+<script>
+setInterval(function(){
+   slidervalue = document.getElementById("slidervalue").innerHTML=document.getElementById("myRange").value + "%";
+},10);
+var tempinput = document.getElementById("myRange");
+function submit(){
+   if(tempinput.value >=50){
+       tempinput.value="Hot"
+       document.getElementById("myForm").submit();
+   }
+   else{
+       tempinput.value="Cold"
+       document.getElementById("myForm").submit();
+   }
+  
+}
+var ASAP = document.getElementById("myForm");
+var sched = document.getElementById("myForm");
+var schod = document.getElementById("scheduler");
+function script1(){
+  
+  
+       //var ASAP = document.getElementById("myForm");
+       ASAP.style.display="block";
+       schod.style.display="none";
+ 
+}
+function script2(){
+  
+   //var sched = document.getElementById("myForm");
+   sched.style.display="block";
+   //var schod = document.getElementById("scheduler");
+   schod.style.display="block";
+ 
+   var d = new Date();
+   var year = d.getFullYear();
+   var months = ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"];
+   var day = d.getDate();
+  
+   document.getElementById("year").innerHTML = year;
+   document.getElementById("month").innerHTML = months[d.getMonth()];
+   document.getElementById("day").innerHTML = day;
+  /*
+  var sel = document.getElementById("dayselector");
+  var addoption = document.createElement('option');
+   for(i=1; day<=i<32; i++){
+  //var sel = document.getElementById("dayselector");
+  //var addoption = document.createElement('option');
+  addoption.appendChild(document.createTextNode(i));
+  addoption.value = i;
+  sel.appendChild(addoption);
+}*/
+ 
+}   
+ 
+</script>
+<style>
+#myForm{
+   display: none;
+}
+#scheduler{
+   display: none;
+}
+</style>
+</html>

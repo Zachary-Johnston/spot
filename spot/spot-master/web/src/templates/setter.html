@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script><html>
+  <style>
+    body {
+       background-image: url('coffee.jpg');
+       background-repeat: no-repeat;
+       background-size: cover;
+       background-attachment: fixed;
+    }
+    </style>
+     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/landing.css">
+<script>
+  function openSlideMenu(){
+    document.getElementById('menu').style.width = '250px';
+    document.getElementById('content').style.marginLeft = '250px';
+  }
+  function closeSlideMenu(){
+    document.getElementById('menu').style.width = '0';
+    document.getElementById('content').style.marginLeft = '0';
+  }
+</script>
+  
+  
+<body>
+<p class="pointer">
+<img id="Polar" src="/polar-coffee-logo-white-400px_tag.png" onClick="myFunction()" alt="Polar Coffee" title="Polar Coffee" width="200px" padding: 30px;>
+<link rel="stylesheet" type="text/css" href="css/sign_up.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  
+  <body>
+     <div id="content">
+
+    <span class="slide">
+      <a href="#" onclick="openSlideMenu()">
+        <i class="fas fa-bars"></i>
+      </a>
+    </span>
+
+    <div id="menu" class="nav">
+      <a href="#" class="close" onclick="closeSlideMenu()">
+        <i class="fas fa-times"></i>
+      </a>
+      <a href="http://polarcoffee.org">Home</a>
+      <a href="http://polarcoffee.org/about">About</a>
+      <a href="http://polarcoffee.org/features">Features</a>
+      <a href="http://polarcoffee.org/pricing">Pricing</a>
+      <a href="http://polarcoffee.org/sign_up">Sign Up</a>
+      <a href="http://polarcoffee.org/login">Login</a>
+      <a href="http://polarcoffee.org/metrics">Metrics</a>
+    </div>
+  </div>
+   </body>  
+  <script>
+document.getElementById("Polar").onclick = function() {
+    window.location.href = "http://polarcoffee.org";
+};
+  </script>
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+<head>
+<title> Design your Coffee </title>
+<style>
+    
+    .hidden{
+        display: none !important;
+    }
+</style>
+</head>
+<div id="menuoption">
+    <p id = "user">When would you like your coffee, {{user}}?</p>
+    <button class="menubuttons" onclick="script1()">ASAP
+    <span></span><span></span><span></span><span></span></button>
+    <button class="menubuttons" onclick="script2()">Schedule
+    <span></span><span></span><span></span><span></span></button>
+</div>
+
+
+    <div id="Temperaturex">
+        <div>
+            <input type = "radio" name ="temperatureNow" id ="hot1" value="Hot">
+            <label for="hot">Hot</label><br>
+            <input type = "radio" name ="temperatureNow" id ="cold1" value="Cold">
+            <label for="cold">Cold</label><br>
+        </div>
+        <input type="submit" value="Submit" onclick="request_now()">
+    </div>
+
+
+    <div id="Temperature">
+        <div>
+            <input type = "radio" name ="temperatureLater" id ="hot2" value="Hot">
+            <label for="hot">Hot</label><br>
+            <input type = "radio" name ="temperatureLater" id ="cold2" value="Cold">
+            <label for="cold">Cold</label><br>
+
+        </div>
+        <div id="scheduler">
+            <p class="optiontitle"> Schedule a Coffee </p>
+            <div id="fulldate">
+                <p id="year">YYYY</p> 
+                <p id="month">MM</p> 
+                <p id="day">DD</p>
+                <input type="date" id="date-input" placeholder="Date">
+                <input type="time" id="time-input" placeholder="Time">
+                <input class="messageCheckbox" type="checkbox">           
+            </div>
+        </div>
+        <input type="submit" value="Submit" onclick="request_later()">
+    </div> 
+  
+
+<script>
+var ASAP = document.getElementById("Temperaturex");
+var sched = document.getElementById("Temperature");
+var schod = document.getElementById("scheduler");
+function script1(){
+    
+        //var ASAP = document.getElementById("myForm");
+        ASAP.style.display="block";
+        sched.style.display="none";
+        //schod.style.display="none";
+
+}
+function script2(){
+    
+    //var sched = document.getElementById("myForm");
+    sched.style.display="block";
+    ASAP.style.display="none";
+
+    var d = new Date();
+    var year = d.getFullYear();
+    var months = ["January", "February", "March", "April", "May", "June", 
+           "July", "August", "September", "October", "November", "December"];
+    var day = d.getDate();
+
+    document.getElementById("year").innerHTML = year;
+    document.getElementById("month").innerHTML = months[d.getMonth()];
+    document.getElementById("day").innerHTML = day;
+
+}    
+function request_to_server(request){
+        let post_URL = "http://64.225.127.211:6001/coffeeset"
+        console.log(request)
+      // Send the POST and receive a response 
+      fetch(post_URL, 
+      {
+        method: "POST",
+        body: JSON.stringify(request)  //Sending data as a JSON string
+                                      //NOTE: request.toString() will return the string "[object Object]"
+      })
+      // After sending, get the response
+      .then((response) =>{
+        console.log("Response Received");
+        to_timer();
+        //window.location.href ="/timer"; //getBack to this
+      })
+      // If there is an error
+      .catch((error)=>{
+            console.log("Massive Error");
+            console.error(error);
+            //to_timer();
+      })
+
+    };
+function to_timer(){
+  window.location.href ="/timer";
+};
+function request_now(){
+      // Build your POST Request
+      let request = {};
+      request["temperature"] = document.getElementById("cold1").value;
+      request["date"] = "asap";
+      request["time"] = "asap";
+      request["recur"] = "asap";
+      console.log(request)
+
+      request_to_server(request)
+    };
+
+function request_later() {
+      // Build your POST Request
+      let request = {};
+      request["temperature"] = document.getElementsByName("temperatureLater").value
+      var date = new Date($('#date-input').val());
+      day = date.getDate();
+      month = date.getMonth() + 1;
+      year = date.getFullYear();
+
+      request["date"] = [day, month, year].join('/');
+      request["time"] = getElementById("time-input").value;
+      request["recur"] = document.querySelector('.messageCheckbox').checked;
+
+       // Send the POST and receive a response 
+       request_to_server(request)       
+    };
+sched.style.display="none";
+ASAP.style.display="none";
+</script>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </table></center>
+  <hr>
+  <center><table style="width:90%; text-align: center; background-color: none; color: #ffffff; padding:15px;">
+    <tr>
+      <th><img id="Bottom" src="/polar-coffee-logo-square-300px.png" onClick="myFunction()" alt="Polar Coffee" title="Polar Coffee" width="200px";></th>
+<script>
+document.getElementById("Bottom").onclick = function() {
+       window.location.href = "http://polarcoffee.org";
+};
+  </script>
+    </tr>
+    <tr>
+      <td><em>How you want it, when you want it.</em></td>
+    </tr>
+    <th>Polar Coffee, Ltd.<br />
+      123 Main Street<br />
+      Anytown, CA 92336<br />
+      Tel (909) 555-5555</th>
+    </tr>
+  </table></center>
+  <hr />
+  <p><span style ="color: #000000;"> © Polar Coffee 2020. All rights reserved.</span></p>
+  </body>
+  </html>
