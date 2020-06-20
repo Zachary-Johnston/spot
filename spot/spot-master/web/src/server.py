@@ -30,7 +30,7 @@ db_host = os.environ['MYSQL_HOST']
 SPOTIPY_CLIENT_ID = '531bf1de1dc44e71bd4bb4f9c69af7a7'
 SPOTIPY_CLIENT_SECRET = '0d6921a912534d15b5fed7e75b4f46b2'
 SPOTIPY_REDIRECT_URI = 'https://polarcoffee.org/spotify'
-SCOPE = 'playlist-modify-public'
+SCOPE = 'playlist-modify-private'
 CACHE = '.spotipyoauthcache'
 
 sp_oauth = oauth2.SpotifyOAuth( SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET,SPOTIPY_REDIRECT_URI,scope=SCOPE,cache_path=CACHE )
@@ -38,36 +38,19 @@ sp_oauth = oauth2.SpotifyOAuth( SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET,SPOTIPY
 def spotify(req):
   return render_to_response('templates/spotify.html', {}, request =req)
 
-@route('/')
+
 def get_playlists(req):
-        
-    access_token = ""
 
-    token_info = sp_oauth.get_cached_token()
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=SCOPE))
 
-    if token_info:
-        print("Found cached token!")
-        access_token = token_info['access_token']
-    else:
-        url = request.url
-        code = sp_oauth.parse_response_code(url)
-        if code:
-            print("Found Spotify auth code in Request URL! Trying to get valid access token...")
-            token_info = sp_oauth.get_access_token(code)
-            access_token = token_info['access_token']
+results = sp.current_user_saved_tracks()
+for idx, item in enumerate(results['items']):
+    track = item['track']
+    print(idx, track['artists'][0]['name'], " – ", track['name'])
+return results
 
-    if access_token:
-        print("Access token available! Trying to get user information...")
-        sp = spotipy.Spotify(access_token)
-        results = sp.current_user()
-        return results
 
-    else:
-        return getSPOauthURI()
 
-def getSPOauthURI():
-    auth_url = sp_oauth.get_authorize_url()
-    return auth_url
 
 
 ''' Route Configurations '''
