@@ -33,73 +33,52 @@ db_pass = os.environ['MYSQL_PASSWORD']
 db_name = os.environ['MYSQL_DATABASE']
 db_host = os.environ['MYSQL_HOST']
 
+SPOTIPY_CLIENT_ID = '531bf1de1dc44e71bd4bb4f9c69af7a7'
+SPOTIPY_CLIENT_SECRET = '0d6921a912534d15b5fed7e75b4f46b2'
+SPOTIPY_REDIRECT_URI = 'http://polarcoffee.org/spotify'
+SCOPE = 'user-library-read'
+CACHE = '.spotipyoauthcache'
 
+sp_oauth = oauth2.SpotifyOAuth( SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET,SPOTIPY_REDIRECT_URI,scope=SCOPE,cache_path=CACHE )
 
 def spotify(req):
   return render_to_response('templates/spotify.html', {}, request =req)
 
+@route('/')
 def get_playlists(req):
+        
+    access_token = ""
 
-    
-    ## Authentication
-  # Register an app with https://developer.spotify.com/dashboard/ and paste your Client ID and Client Secret on the line below
-  token = util.oauth2.SpotifyClientCredentials(client_id='531bf1de1dc44e71bd4bb4f9c69af7a7', client_secret='0d6921a912534d15b5fed7e75b4f46b2')
-  cache_token = token.get_access_token()
-  spotify = spotipy.Spotify(cache_token) 
- 
-  # Get the first 100 (max) songs in the playlist
-  results = spotify.user_playlist_tracks('spotify:user:zack_johnston', 'spotify:playlist:6dosGTCTRJ5xtA3XM6YTZb', limit=100, offset=0)
+    token_info = sp_oauth.get_cached_token()
 
-  # Store songs in a tracks array
-  tracks = results['items']
-  playlist_length = len(tracks)
+    if token_info:
+        print "Found cached token!"
+        access_token = token_info['access_token']
+    else:
+        url = request.url
+        code = sp_oauth.parse_response_code(url)
+        if code:
+            print "Found Spotify auth code in Request URL! Trying to get valid access token..."
+            token_info = sp_oauth.get_access_token(code)
+            access_token = token_info['access_token']
 
-  
-  playlist_id = '7xIQR4CjGNAOEXA00Jjfqc'
-  track_ids = []
-  for x in range(0, playlist_length):
-    track_ids.append(results['items'][x]['track']['id'])
-    
+    if access_token:
+        print "Access token available! Trying to get user information..."
+        sp = spotipy.Spotify(access_token)
+        results = sp.current_user()
+        return results
 
-  token = util.prompt_for_user_token(
-        username='zack_johnston',
-        scope='playlist-modify-private',
-        client_id='531bf1de1dc44e71bd4bb4f9c69af7a7',
-        client_secret='0d6921a912534d15b5fed7e75b4f46b2',
-        redirect_uri='https://polarcoffee.org/spotify')
-  spotify = spotipy.Spotify(auth=token)
-  spotify.trace = False
-  adds = spotify.user_playlist_add_tracks(username, playlist_id, track_ids)
-  print(adds)
+    else:
+        return htmlForLoginButton()
 
+def htmlForLoginButton():
+    auth_url = getSPOauthURI()
+    htmlLoginButton = "<a href='" + auth_url + "'>Login to Spotify</a>"
+    return htmlLoginButton
 
-
-  #songs_array = []
-  #artists_array = []
-  #date_added_array = []
-  
-  #for x in range(0, playlist_length):
-    #songs_array.append(results['items'][x]['track']['name'])
-    
-  #for i in range(0, playlist_length):
-    #artists_array.append(results['items'][i]['track']['artists'][0]['name'])
-    
-  #for j in range(0, playlist_length):
-    #date_added_array.append(results['items'][j]['added_at'])
-
-  #print(songs)
-  #print(artists)
-  #print(date_added)
-  #print(json.dumps(results))
-  #new_adds = []
-  records = {}
-  records = Response(body=json.dumps(results))
-  records.headers.update({'Access-Control-Allow-Origin': '*',})
-  return records
-
-
-
-
+def getSPOauthURI():
+    auth_url = sp_oauth.get_authorize_url()
+    return auth_url
 
 
 ''' Route Configurations '''
@@ -109,11 +88,19 @@ if __name__ == '__main__':
   config.include('pyramid_jinja2')
   config.add_jinja2_renderer('.html')
   
-  config.add_route('spotify', '/')
+  config.add_route('spotify', '/spotify')
   config.add_view(spotify, route_name='spotify', renderer='json')
   
   config.add_route('get_playlists', '/get_playlists')
   config.add_view(get_playlists, route_name='get_playlists', renderer='json')
+  
+  #######not sure if these are needed
+  
+  #config.add_route('getSPOauthURI', '/getSPOauthURI')
+  #config.add_view(getSPOauthURI, route_name='getSPOauthURI', renderer='json')
+  
+  #config.add_route('htmlForLoginButton', '/htmlForLoginButton')
+  #config.add_view(htmlForLoginButton, route_name='htmlForLoginButton', renderer='json')
 
 
   config.add_static_view(name='/', path='./public', cache_max_age=3600)
