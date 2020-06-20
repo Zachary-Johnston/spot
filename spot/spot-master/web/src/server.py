@@ -3,6 +3,7 @@ from pyramid.config import Configurator
 from pyramid.renderers import render_to_response
 from pyramid.response import Response
 from spotipy import Spotify
+from spotipy import oauth2
 from spotipy.oauth2 import SpotifyClientCredentials
 from bottle import route, run, request
 
