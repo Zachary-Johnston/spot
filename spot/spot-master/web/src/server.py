@@ -63,12 +63,7 @@ def get_playlists(req):
         return results
 
     else:
-        return htmlForLoginButton()
-
-def htmlForLoginButton():
-    auth_url = getSPOauthURI()
-    htmlLoginButton = "<a href='" + auth_url + "'>Login to Spotify</a>"
-    return htmlLoginButton
+        return getSPOauthURI()
 
 def getSPOauthURI():
     auth_url = sp_oauth.get_authorize_url()
