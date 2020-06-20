@@ -109,7 +109,7 @@ if __name__ == '__main__':
   config.include('pyramid_jinja2')
   config.add_jinja2_renderer('.html')
   
-  config.add_route('spotify', '/spotify')
+  config.add_route('spotify', '/')
   config.add_view(spotify, route_name='spotify', renderer='json')
   
   config.add_route('get_playlists', '/get_playlists')
