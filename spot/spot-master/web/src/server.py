@@ -30,7 +30,7 @@ db_host = os.environ['MYSQL_HOST']
 SPOTIPY_CLIENT_ID = '531bf1de1dc44e71bd4bb4f9c69af7a7'
 SPOTIPY_CLIENT_SECRET = '0d6921a912534d15b5fed7e75b4f46b2'
 SPOTIPY_REDIRECT_URI = 'http://polarcoffee.org/spotify'
-SCOPE = 'user-library-read'
+SCOPE = 'playlist-modify-private'
 CACHE = '.spotipyoauthcache'
 
 sp_oauth = oauth2.SpotifyOAuth( SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET,SPOTIPY_REDIRECT_URI,scope=SCOPE,cache_path=CACHE )
