@@ -40,14 +40,12 @@ def spotify(req):
 
 
 def get_playlists(req):
-
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=SCOPE))
-
-results = sp.current_user_saved_tracks()
-for idx, item in enumerate(results['items']):
+  sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=SCOPE))
+  results = sp.current_user_saved_tracks()
+  for idx, item in enumerate(results['items']):
     track = item['track']
     print(idx, track['artists'][0]['name'], " – ", track['name'])
-return results
+  return results
 
 
 
