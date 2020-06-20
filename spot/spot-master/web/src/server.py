@@ -33,14 +33,14 @@ SPOTIPY_REDIRECT_URI = 'https://polarcoffee.org/spotify'
 SCOPE = 'playlist-modify-private'
 CACHE = '.spotipyoauthcache'
 
-sp_oauth = oauth2.SpotifyOAuth( SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET,SPOTIPY_REDIRECT_URI,scope=SCOPE,cache_path=CACHE )
+#sp_oauth = oauth2.SpotifyOAuth( SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET,SPOTIPY_REDIRECT_URI,scope=SCOPE,cache_path=CACHE )
 
 def spotify(req):
   return render_to_response('templates/spotify.html', {}, request =req)
 
 
 def get_playlists(req):
-  sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=SCOPE))
+  sp = spotipy.Spotify(auth_manager=oauth2.SpotifyOAuth( SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET,SPOTIPY_REDIRECT_URI,scope=SCOPE,cache_path=CACHE ))
   results = sp.current_user_saved_tracks()
   for idx, item in enumerate(results['items']):
     track = item['track']
